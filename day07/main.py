@@ -1,5 +1,4 @@
 def part1(bag):
-    dic = parser()
     res = -1  # because don't count the bag of search
     for key in dic:
         queue = [key]
@@ -31,21 +30,20 @@ def parser():
     return dic
 
 def part2(queue, res=1, l=[]):
-    dic = parser()
     while (len(queue) > 0):
         e = queue.pop()
         new_res = res
         if (len(e) != 0):
             new_res *= e[1]
             l.append(new_res)
-            new_res += part2(dic[e[0]], new_res, l)
+            new_res += part2(dic[e[0]][:], new_res, l)
         else:
             return 1 * res
     if (res == 1):
         print(sum(l))
     return res
 
-
 if __name__ == '__main__':
+    dic = parser()
     part1('shiny-gold')
-    part2(parser()['shiny-gold'])
+    part2(dic['shiny-gold'])
