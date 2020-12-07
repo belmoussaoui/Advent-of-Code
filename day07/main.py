@@ -30,11 +30,22 @@ def parser():
             dic[key].append(val)
     return dic
 
-def part2():
-    file = open("data.txt", "r")
-    lines = file.readlines()
+def part2(queue, res=1, l=[]):
+    dic = parser()
+    while (len(queue) > 0):
+        e = queue.pop()
+        new_res = res
+        if (len(e) != 0):
+            new_res *= e[1]
+            l.append(new_res)
+            new_res += part2(dic[e[0]], new_res, l)
+        else:
+            return 1 * res
+    if (res == 1):
+        print(sum(l))
+    return res
 
 
 if __name__ == '__main__':
     part1('shiny-gold')
-    # part2()
+    part2(parser()['shiny-gold'])
